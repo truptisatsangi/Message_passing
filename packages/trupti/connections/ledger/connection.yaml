@@ -1,0 +1,97 @@
+name: ledger
+author: trupti
+version: 0.19.0
+type: connection
+description: A connection to interact with any ledger API and contract API.
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint_ignore_patterns: []
+connections: []
+class_name: LedgerConnection
+config:
+  ledger_apis:
+    ethereum:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: &id001
+        gas_station:
+          gas_price_api_key: null
+          gas_price_strategy: fast
+        eip1559:
+          max_gas_fast: 1500
+          fee_history_blocks: 10
+          fee_history_percentile: 5
+          priority_fee_estimation_trigger: 100
+          default_priority_fee: 3
+          fallback_estimate:
+            maxFeePerGas: 20000000000
+            maxPriorityFeePerGas: 3000000000
+            baseFee: null
+          priority_fee_increase_boundary: 200
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    ethereum_flashbots:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+      authentication_private_key: null
+      flashbots_builders: []
+    solana:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    arbitrum:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    zksync:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    bnb:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    gnosis:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    consensys:
+      address: http://127.0.0.1:8545
+      chain_id: 1337
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: false
+    celo:
+      address: http://127.0.0.1:8545
+      chain_id: 42220
+      default_gas_price_strategy: eip1559
+      gas_price_strategies: *id001
+      is_gas_estimation_enabled: true
+      poa_chain: true
+  retry_attempts: 240
+  retry_timeout: 3
+excluded_protocols: []
+dependencies:
+  pytest-asyncio: {}
+is_abstract: false

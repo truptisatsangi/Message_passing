@@ -1,0 +1,28 @@
+alphabet_in:
+- DONE
+- NONE
+- RESET_TIMEOUT
+- ROUND_TIMEOUT
+default_start_state: RegistrationRound
+final_states: []
+label: TruptiAbciApp
+start_states:
+- RegistrationRound
+states:
+- ReceiveMessageRound
+- PrintMessageRound
+- RegistrationRound
+- ResetAndPauseRound
+- SendMessageRound
+transition_func:
+    (ReceiveMessageRound, DONE): SendMessageRound
+    (ReceiveMessageRound, NONE): ReceiveMessageRound
+    (ReceiveMessageRound, ROUND_TIMEOUT): ReceiveMessageRound
+    (PrintMessageRound, DONE): ResetAndPauseRound
+    (PrintMessageRound, ROUND_TIMEOUT): RegistrationRound
+    (RegistrationRound, DONE): ReceiveMessageRound
+    (ResetAndPauseRound, DONE): ReceiveMessageRound
+    (ResetAndPauseRound, RESET_TIMEOUT): RegistrationRound
+    (SendMessageRound, DONE): PrintMessageRound
+    (SendMessageRound, NONE): RegistrationRound
+    (SendMessageRound, ROUND_TIMEOUT): RegistrationRound

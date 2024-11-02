@@ -1,6 +1,8 @@
 {
     "dev": {
-        "skill/trupti/your_fsm_app_abci/0.1.0": "bafybeiby7mq5wxocxwrcdty5iy3lccqwsbjgcxefplhyyetdhlplbz7v6i"
+        "skill/trupti/message_passing/0.1.0": "bafybeiby7mq5wxocxwrcdty5iy3lccqwsbjgcxefplhyyetdhlplbz7v6i",
+        "service/trupti/message_passing/0.1.0": "bafybei0000000000000000000000000000000000000000000000000000",
+        "agent/trupti/message_passing/0.1.0": "bafybei0000000000000000000000000000000000000000000000000000"
     },
     "third_party": {
         "protocol/open_aea/signing/1.0.0": "bafybeihv62fim3wl2bayavfcg3u5e5cxu3b7brtu4cn5xoxd6lqwachasi",

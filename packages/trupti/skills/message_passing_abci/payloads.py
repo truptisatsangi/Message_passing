@@ -23,19 +23,17 @@ from dataclasses import dataclass
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
-
-@dataclass(frozen=True)
-class CollectRandomnessPayload(BaseTxPayload):
-    """Represent a transaction payload for the CollectRandomnessRound."""
-
-    # TODO: define your attributes
-
-
 @dataclass(frozen=True)
 class PrintMessagePayload(BaseTxPayload):
     """Represent a transaction payload for the PrintMessageRound."""
-
-    # TODO: define your attributes
+    encoded_payload: str
+    @staticmethod
+    def decode_payload_from_hex(self) -> tuple:
+        """Decode a hex-encoded payload back to sender and content strings."""
+        decoded = bytes.fromhex(self.encoded_payload).decode("utf-8")
+        sender, content = decoded.split(":", 1)  # Split only on the first colon
+        print("sender: ", sender, " message: ", content)
+        return sender, content
 
 
 @dataclass(frozen=True)
@@ -58,3 +56,22 @@ class SelectKeeperPayload(BaseTxPayload):
 
     # TODO: define your attributes
 
+@dataclass(frozen=True)
+class ReceiveMessagePayload(BaseTxPayload):
+    """Represents a transaction payload for the ReceiveMessage."""
+    sender: str
+    content: str
+    def encode_payload_to_hex(self) -> str:
+        """Encode both sender and content to UTF-8 and convert to hex format."""
+        message = f"{self.sender}:{self.content}"
+        return message.encode("utf-8").hex()
+    
+@dataclass(frozen=True)
+class SendMessagePayload(BaseTxPayload):
+    """Represents a transaction payload for the ReceiveMessage."""
+    sender: str
+    content: str
+    def encode_payload_to_hex(self) -> str:
+        """Encode both sender and content to UTF-8 and convert to hex format."""
+        message = f"{self.sender}:{self.content}"
+        return message.encode("utf-8").hex()

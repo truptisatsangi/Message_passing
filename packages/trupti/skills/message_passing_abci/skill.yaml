@@ -7,12 +7,12 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeigqgtg762q7iyerluzlaccoq2xid4ryrr53o7pgs7gnipkf4qyniq
-  behaviours.py: bafybeidhl3ur7ft6nzfm2ghnawogqlvfxs7mzyqiromt67knselfn74vta
+  behaviours.py: bafybeiborvimqbevksvkpeqlqagb2jtmo2hwchf5pswinsfvoolzkttqne
   dialogues.py: bafybeihm3vh5nxo5o3xax5q6c2idchxosausvyaofbxltflkfizwjhuuau
-  fsm_specification.yaml: bafybeieb5c6ntu6ezopfpq3mhh34qvr3fr4r6bh65fvtnp2pos7ubjx7ci
+  fsm_specification.yaml: bafybeicc5liktmcf6yjmmtueajmyqhy4yrx2jp6gzlkli6qyjmrpnw4waq
   handlers.py: bafybeigv2icdcj5ja4sy6ygbxi5g3irkzkndbr5p6h73fx2ysd4vkvqgha
   models.py: bafybeie3zivlqheuldt7pxcjgesu6fyf32vl6gidn5uzgncxnenccix6le
-  payloads.py: bafybeifysldlfhk5qppwme4trogpx2biq4gc5ksocygafxj7ggl5ww6pha
+  payloads.py: bafybeign4q7e4sqbhda7lejmff365uukwqfqxbrrsdpsrqq4aksdm3dawa
   rounds.py: bafybeibgvleqqp4mziucrbnf3enmjonayw3qabo6apddtoa7a5xnyhnc6m
   tests/__init__.py: bafybeifigp64li3j3yidpan5arc27etm3jytadjsckjaidrem57hst73ry
   tests/test_behaviours.py: bafybeidz4uxxl4kgsmgizqmubcnzohyf6j4zowg7dm5mvwcz2ewb5sxduy
@@ -26,7 +26,7 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- valory/abstract_round_abci:0.1.0
+- valory/abstract_round_abci:0.1.0:bafybeia6lemk5s64f26qjnd2746s5mufpzxuaf5frsqhfbr62kk3ma6sp4
 behaviours:
   main:
     args: {}

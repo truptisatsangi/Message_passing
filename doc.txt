@@ -1,0 +1,3 @@
+States of this project 
+- Send msg
+- receive msg 

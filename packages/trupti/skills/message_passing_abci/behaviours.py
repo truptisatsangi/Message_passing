@@ -22,6 +22,7 @@
 from abc import ABC
 from typing import Generator, Set, Type, cast
 
+from packages.trupti.skills.your_fsm_app_abci.payloads import ReceiveMessagePayload, SendMessagePayload
 from packages.valory.skills.abstract_round_abci.base import AbstractRound
 from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
@@ -39,7 +40,6 @@ from packages.trupti.skills.your_fsm_app_abci.rounds import (
     SelectKeeperRound,
 )
 from packages.trupti.skills.your_fsm_app_abci.rounds import (
-    CollectRandomnessPayload,
     PrintMessagePayload,
     RegistrationPayload,
     ResetAndPausePayload,
@@ -61,20 +61,18 @@ class HelloWorldBaseBehaviour(BaseBehaviour, ABC):
         return cast(Params, super().params)
 
 
-class CollectRandomnessBehaviour(HelloWorldBaseBehaviour):
-    """CollectRandomnessBehaviour"""
+class ReceiveMessageBehaviour(HelloWorldBaseBehaviour):
+    """ReceiveMessageBehaviour"""
 
-    matching_round: Type[AbstractRound] = CollectRandomnessRound
+    matching_round: Type[AbstractRound] = CollectRandomnessRound   #........................
 
-    # TODO: implement logic required to set payload content for synchronization
-    def async_act(self) -> Generator:
+    def async_act(self, message) -> Generator:
         """Do the act, supporting asynchronous execution."""
-
-        
 
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
             sender = self.context.agent_address
-            payload = CollectRandomnessPayload(sender=sender, content=...)
+            instance = ReceiveMessagePayload(sender=sender, content=message)
+            payload = instance.encode_payload_to_hex()
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             yield from self.send_a2a_transaction(payload)
@@ -89,12 +87,13 @@ class PrintMessageBehaviour(HelloWorldBaseBehaviour):
     matching_round: Type[AbstractRound] = PrintMessageRound
 
     # TODO: implement logic required to set payload content for synchronization
-    def async_act(self) -> Generator:
+    def async_act(self, payload) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
-            sender = self.context.agent_address
-            payload = PrintMessagePayload(sender=sender, content=...)
+            # sender = self.context.agent_address
+            instance = PrintMessagePayload(content=payload)
+            instance.decode_payload_from_hex()
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             yield from self.send_a2a_transaction(payload)
@@ -122,6 +121,24 @@ class RegistrationBehaviour(HelloWorldBaseBehaviour):
 
         self.set_done()
 
+class SendMessageBehaviour(HelloWorldBaseBehaviour):
+    """SendMessageBehaviour"""
+
+    # matching_round: Type[AbstractRound] = RegistrationRound
+
+    # TODO: implement logic required to set payload content for synchronization
+    def async_act(self, message) -> Generator:
+        """Do the act, supporting asynchronous execution."""
+
+        with self.context.benchmark_tool.measure(self.behaviour_id).local():
+            sender = self.context.agent_address
+            payload = SendMessagePayload(sender=sender, content=message)
+
+        with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
 
 class ResetAndPauseBehaviour(HelloWorldBaseBehaviour):
     """ResetAndPauseBehaviour"""
@@ -129,12 +146,12 @@ class ResetAndPauseBehaviour(HelloWorldBaseBehaviour):
     matching_round: Type[AbstractRound] = ResetAndPauseRound
 
     # TODO: implement logic required to set payload content for synchronization
-    def async_act(self) -> Generator:
+    def async_act(self, message) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
             sender = self.context.agent_address
-            payload = ResetAndPausePayload(sender=sender, content=...)
+            payload = ResetAndPausePayload(sender=sender, content=message)
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             yield from self.send_a2a_transaction(payload)
@@ -149,12 +166,12 @@ class SelectKeeperBehaviour(HelloWorldBaseBehaviour):
     matching_round: Type[AbstractRound] = SelectKeeperRound
 
     # TODO: implement logic required to set payload content for synchronization
-    def async_act(self) -> Generator:
+    def async_act(self, message) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
             sender = self.context.agent_address
-            payload = SelectKeeperPayload(sender=sender, content=...)
+            payload = SelectKeeperPayload(sender=sender, content=message)
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             yield from self.send_a2a_transaction(payload)
@@ -169,7 +186,7 @@ class HelloWorldRoundBehaviour(AbstractRoundBehaviour):
     initial_behaviour_cls = RegistrationBehaviour
     abci_app_cls = HelloWorldAbciApp  # type: ignore
     behaviours: Set[Type[BaseBehaviour]] = [
-        CollectRandomnessBehaviour,
+        ReceiveMessageBehaviour,
         PrintMessageBehaviour,
         RegistrationBehaviour,
         ResetAndPauseBehaviour,

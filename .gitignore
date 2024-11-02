@@ -15,6 +15,8 @@ packages/valory/skills/registration_abci/
 packages/valory/skills/reset_pause_abci/
 packages/valory/skills/transaction_settlement_abci/
 packages/valory/skills/termination_abci/
+packages/trupti/connections/abci
+packages/trupti/protocols/ipfs
 
 packages/valory/contracts/erc20/
 packages/valory/contracts/mech/
