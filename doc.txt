@@ -1,3 +1,7 @@
 States of this project 
 - Send msg
 - receive msg 
+
+For successfull completions/events
+state = Receive message => Transition to = SendMessageRound
+state = Send message => Transition to = PrintMessageRound
